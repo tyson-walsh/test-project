@@ -1,0 +1,44 @@
+# k8s-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app-deployment
+spec:
+  activeDeadlineSeconds: 1800
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+      - name: python-app-container
+        image: your-dockerhub-username-or-HPC-IP/python-app:latest
+      resources:
+        requests:
+          memory: "1Gi"
+          cpu: "1"
+        limits:
+          memory: "1Gi"
+          cpu: "1"
+      command: [“python”, “app.py”]
+      ports:
+      - containerPort: 80
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app-service
+spec:
+  type: ClusterIP
+  selector:
+    app: python-app
+  ports:
+    - protocol: TCP
+    port: 80
+    targetPort: 80
