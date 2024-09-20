@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: python-app-container
-        image: your-dockerhub-username-or-HPC-IP/python-app:latest  # Update this line
+        image: thwalsh/python-app:latest  # Update this line
         resources:
           requests:
             memory: "1Gi"
