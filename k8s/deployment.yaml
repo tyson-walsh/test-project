@@ -1,4 +1,3 @@
-# k8s-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,17 +15,17 @@ spec:
     spec:
       containers:
       - name: python-app-container
-        image: your-dockerhub-username-or-HPC-IP/python-app:latest
-      resources:
-        requests:
-          memory: "1Gi"
-          cpu: "1"
-        limits:
-          memory: "1Gi"
-          cpu: "1"
-      command: [“python”, “app.py”]
-      ports:
-      - containerPort: 80
+        image: thwalsh/python-app:latest  # Update this line
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        command: ["python", "app.py"]  # Use straight quotes
+        ports:
+        - containerPort: 80
       restartPolicy: Always
 
 ---
@@ -40,5 +39,5 @@ spec:
     app: python-app
   ports:
     - protocol: TCP
-    port: 80
-    targetPort: 80
+      port: 80
+      targetPort: 80
